@@ -6,6 +6,7 @@ import logging
 logging.basicConfig(
     level='INFO', format="%(asctime)s:%(funcName)s:%(message)s")
 
+#  passing fixed values
 columns = ['Province/State', 'Country/Region', 'Last Update', 'Confirmed']
 output_columns = ['date', 'name', 'category', 'value']
 path = os.path.dirname(os.getcwd(
@@ -15,6 +16,7 @@ US_MAPPING = pd.read_excel(
 
 
 def map_us_state(state, country):
+    """US state names are inconsistent. Map abbrievations to full name."""
     if pd.isna(state):
         pass
     elif "Diamond Princess" in state:
@@ -25,7 +27,7 @@ def map_us_state(state, country):
 
 
 def clean_raw_data(df):
-    # standardize US state name
+    """Standardize US state name and delete unused columns."""
     df['Province/State'] = df.apply(lambda row: map_us_state(
         row['Province/State'], row['Country/Region']), axis=1)
 
@@ -36,6 +38,7 @@ def clean_raw_data(df):
 
 
 def stack_data(df):
+    """Stack data to convert the dates columns to rows."""
     stacked = df.set_index(
         ['Province/State', 'Country/Region']).stack().reset_index()
     stacked.columns = columns
@@ -58,6 +61,7 @@ def stack_data(df):
 
 
 def filter_and_save(df, country, filename):
+    """Filter based on country and save data to file in path."""
     filt = (df['category'].isin(country))
     output = df.loc[filt, output_columns]
     output['category'] = output['name']
@@ -66,12 +70,10 @@ def filter_and_save(df, country, filename):
 
 
 def group_data(df):
-    # stacked['name'].fillna('Not_specified', inplace=True)
+    """Group by country to get country level stats. """
     grouped = df.groupby(['category', 'date'])['value'].sum().reset_index()
     grouped['name'] = grouped['category']
     return grouped
-
-    # "covid_19_ex_mainland_china_1.csv"
 
 
 def main():
@@ -85,7 +87,7 @@ def main():
     # clean data
     confirmed = clean_raw_data(confirmed)
 
-    logging.info('stack cleaned data')
+    logging.info('stack data to convert dates columns to rows')
 
     # stack data by country/region and province/state
     stacked_state = stack_data(confirmed)
@@ -107,7 +109,7 @@ def main():
     filt = grouped['category'].isin(['Mainland China', 'China'])
     grouped.loc[-filt,
                 output_columns].to_csv("covid_19_ex_mainland_china_1.csv", index=False)
-    logging.info('country level data excluding mainladn china saved')
+    logging.info('country level data excluding mainland china saved')
 
 
 if __name__ == '__main__':
