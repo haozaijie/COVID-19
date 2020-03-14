@@ -1,3 +1,22 @@
+# Visualization using the COVID-19 time series data
+<b>Visualization:</b><br>
+I want to track change in the number of confirmed cases by country overtime.
+Below is a bar chart race created in D3:
+https://observablehq.com/@haozaijie/bar-chart-race-explained
+
+
+
+<b>Explanation on the sample output:</b><br>
+The sample output excludes data from mainland China.(for better display)
+
+
+
+<b>Screentshot of Mar 12, 2020 data:</b><br>
+![Sample bar chart](https://github.com/haozaijie/COVID-19/blob/master/visualization/sample_output.png)
+
+
+
+# Original documentation
 # 2019 Novel Coronavirus COVID-19 (2019-nCoV) Data Repository by Johns Hopkins CSSE
 
 
@@ -30,7 +49,7 @@ https://systems.jhu.edu/
 * US CDC: https://www.cdc.gov/coronavirus/2019-ncov/index.html <br>
 * Government of Canada: https://www.canada.ca/en/public-health/services/diseases/coronavirus.html <br>
 * Australia Government Department of Health: https://www.health.gov.au/news/coronavirus-update-at-a-glance <br>
-* European Centre for Disease Prevention and Control (ECDC): https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases 
+* European Centre for Disease Prevention and Control (ECDC): https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases
 * Ministry of Health Singapore (MOH): https://www.moh.gov.sg/covid-19
 * Italy Ministry of Health: http://www.salute.gov.it/nuovocoronavirus
 
